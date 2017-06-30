@@ -87,7 +87,7 @@ public interface RSocketFactory {
   }
 
   interface MimeType<T> {
-    T mimeType(String dataMineType, String metadataMimeType);
+    T mimeType(String metadataMimeType, String dataMineType);
 
     T dataMineType(String dataMineType);
 
@@ -170,9 +170,9 @@ public interface RSocketFactory {
     }
 
     @Override
-    public ClientRSocketFactory mimeType(String dataMineType, String metadataMimeType) {
-      this.dataMineType = dataMineType;
+    public ClientRSocketFactory mimeType(String metadataMimeType, String dataMineType) {
       this.metadataMimeType = metadataMimeType;
+      this.dataMineType = dataMineType;
       return this;
     }
 
@@ -241,8 +241,8 @@ public interface RSocketFactory {
                           flags,
                           (int) ackTimeout.toMillis(),
                           (int) ackTimeout.toMillis() * missedAcks,
-                          dataMineType,
                           metadataMimeType,
+                          dataMineType,
                           setupPayload);
 
                   if (mtu > 0) {
